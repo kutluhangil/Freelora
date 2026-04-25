@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* === BACKGROUNDS === */
+  --color-bg-primary: #0a0a0b;
+  --color-bg-secondary: #111113;
+  --color-bg-tertiary: #1a1a1d;
+  --color-bg-elevated: #222225;
+
+  /* === BORDERS === */
+  --color-border-subtle: #2a2a2e;
+  --color-border-default: #333338;
+  --color-border-strong: #4a4a50;
+
+  /* === TEXT === */
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #a1a1a6;
+  --color-text-tertiary: #6b6b70;
+  --color-text-muted: #48484d;
+
+  /* === ACCENT (neon lime) === */
+  --color-accent: #c8ff00;
+  --color-accent-hover: #d4ff33;
+  --color-accent-muted: rgba(200, 255, 0, 0.12);
+  --color-accent-text: #0a0a0b;
+
+  /* === SEMANTIC === */
+  --color-success: #34d399;
+  --color-success-muted: rgba(52, 211, 153, 0.12);
+  --color-warning: #fbbf24;
+  --color-warning-muted: rgba(251, 191, 36, 0.12);
+  --color-danger: #f87171;
+  --color-danger-muted: rgba(248, 113, 113, 0.12);
+  --color-info: #60a5fa;
+  --color-info-muted: rgba(96, 165, 250, 0.12);
+
+  /* === EFFECTS === */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(200, 255, 0, 0.15);
+
+  /* === GLASS === */
+  --glass-bg: rgba(17, 17, 19, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+
+  /* === RADIUS === */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* === FONTS === */
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+* {
+  border-color: var(--color-border-subtle);
+}
+
+html,
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Tabular numerals for money */
+.font-mono,
+[data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-accent);
+  border-radius: inherit;
+}
+
+/* Glass surface utility */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Subtle grid pattern (landing) */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 60%, transparent 100%);
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 0%,
+    var(--color-bg-elevated) 50%,
+    var(--color-bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}

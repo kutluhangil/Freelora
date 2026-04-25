@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            cd ${{ secrets.APP_DIR }}
+            git pull origin main
+            cp .env.production docker/.env 2>/dev/null || true
+            docker compose -f docker/docker-compose.yml build --no-cache app
+            docker compose -f docker/docker-compose.yml up -d --remove-orphans
+            docker image prune -f
