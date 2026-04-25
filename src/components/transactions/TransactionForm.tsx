@@ -11,6 +11,7 @@ import { categoriesByType } from "@/lib/constants/categories";
 import { CURRENCIES } from "@/lib/constants/currencies";
 import { createTransaction, updateTransaction } from "@/lib/actions/transactions";
 import { todayISO } from "@/lib/utils/date";
+import { ReceiptUpload } from "@/components/transactions/ReceiptUpload";
 import type { Transaction, Project, Client } from "@/types/database";
 
 interface Props {
@@ -19,9 +20,10 @@ interface Props {
   projects: Pick<Project, "id" | "name">[];
   clients: Pick<Client, "id" | "name">[];
   onDone?: () => void;
+  userId?: string;
 }
 
-export function TransactionForm({ type, initial, projects, clients, onDone }: Props) {
+export function TransactionForm({ type, initial, projects, clients, onDone, userId }: Props) {
   const t = useTranslations();
   const [pending, start] = useTransition();
   const [form, setForm] = useState({
@@ -36,6 +38,7 @@ export function TransactionForm({ type, initial, projects, clients, onDone }: Pr
     is_recurring: initial?.is_recurring ?? false,
     recurring_interval: initial?.recurring_interval ?? "monthly",
     notes: initial?.notes ?? "",
+    receipt_url: initial?.receipt_url ?? null as string | null,
   });
 
   useEffect(() => {
@@ -166,6 +169,14 @@ export function TransactionForm({ type, initial, projects, clients, onDone }: Pr
         value={form.notes ?? ""}
         onChange={(e) => set("notes", e.target.value)}
       />
+
+      {userId && (
+        <ReceiptUpload
+          value={form.receipt_url}
+          onChange={(url) => set("receipt_url", url as never)}
+          userId={userId}
+        />
+      )}
 
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="ghost" onClick={onDone} disabled={pending}>

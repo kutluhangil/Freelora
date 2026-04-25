@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { TransactionList } from "@/components/transactions/TransactionList";
 import { AddTransactionButton } from "@/components/transactions/AddTransactionButton";
+import { ExportCSVButton } from "@/components/transactions/ExportCSVButton";
 
 export default async function ExpensesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -31,7 +32,10 @@ export default async function ExpensesPage({ params }: { params: Promise<{ local
           <h1 className="font-display text-xl font-bold tracking-tight">{t("nav.expenses")}</h1>
           <p className="mt-1 text-xs text-text-tertiary">{tx.data?.length ?? 0}</p>
         </div>
-        <AddTransactionButton type="expense" projects={projects.data ?? []} clients={clients.data ?? []} />
+        <div className="flex items-center gap-2">
+          <ExportCSVButton type="expense" />
+          <AddTransactionButton type="expense" projects={projects.data ?? []} clients={clients.data ?? []} />
+        </div>
       </div>
 
       <div className="rounded-lg border border-border-subtle bg-bg-secondary">

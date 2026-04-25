@@ -92,7 +92,11 @@
     "allCategories": "Tüm kategoriler",
     "deleteConfirm": "Bu işlem silinecek. Emin misin?",
     "saved": "İşlem kaydedildi",
-    "deleted": "İşlem silindi"
+    "deleted": "İşlem silindi",
+    "uploadReceipt": "Fiş / makbuz yükle",
+    "viewReceipt": "Fişi görüntüle",
+    "receiptUploaded": "Fiş yüklendi",
+    "receiptTooLarge": "Dosya 5MB'dan büyük olamaz"
   },
   "categories": {
     "freelance_income": "Freelance Gelir",
@@ -196,7 +200,9 @@
       "paid": "Ödendi",
       "overdue": "Gecikmiş",
       "canceled": "İptal"
-    }
+    },
+    "emailSent": "Fatura e-posta olarak gönderildi",
+    "sendEmail": "E-posta Gönder"
   },
   "tax": {
     "title": "Vergi Takvimi",
@@ -289,7 +295,9 @@
     "no": "Hayır",
     "close": "Kapat",
     "more": "Daha fazla",
-    "tryAgain": "Tekrar dene"
+    "tryAgain": "Tekrar dene",
+    "exportSuccess": "CSV başarıyla indirildi",
+    "navigation": "Gezin"
   },
   "settings": {
     "title": "Ayarlar",
@@ -336,5 +344,18 @@
     "limitReached": "Plan limitin doldu",
     "upgradePrompt": "Daha fazlası için planını yükselt.",
     "upgradeNow": "Şimdi Yükselt"
+  },
+  "onboarding": {
+    "welcome": "Freelora'ya hoş geldin!",
+    "welcomeDesc": "Freelance finansını yönetmek için birkaç hızlı adım.",
+    "profileTitle": "Profilini tamamla",
+    "currencyTitle": "Temel para biriminizi seç",
+    "currencyDesc": "Tüm gelir/gider otomatik olarak bu para birimine çevrilir.",
+    "taxTitle": "Vergi takvimi",
+    "taxDesc": "Ülkene göre vergi tarihlerini otomatik ekleyelim mi?",
+    "trTaxDates": "Türkiye vergi tarihleri (KDV, muhtasar, gelir vergisi…) takvimime eklenecek.",
+    "usTaxDates": "ABD quarterly estimated tax tarihleri takvimime eklenecek.",
+    "finish": "Başlayalım",
+    "done": "Hesabın hazır!"
   }
 }

@@ -32,6 +32,7 @@ export interface Profile {
   plan_status: PlanStatus;
   lemon_squeezy_customer_id: string | null;
   lemon_squeezy_subscription_id: string | null;
+  onboarded: boolean;
   created_at: string;
   updated_at: string;
 }

@@ -3,6 +3,8 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { CommandPalette } from "@/components/layout/CommandPalette";
+import { OnboardingModal } from "@/components/onboarding/OnboardingModal";
 import { createClient } from "@/lib/supabase/server";
 import type { Profile } from "@/types/database";
 
@@ -39,6 +41,10 @@ export default async function DashboardLayout({
         </main>
         <MobileNav />
       </div>
+      <CommandPalette />
+      {profile && !(profile as Profile).onboarded && (
+        <OnboardingModal profile={profile as Profile} />
+      )}
     </div>
   );
 }

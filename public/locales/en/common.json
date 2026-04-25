@@ -92,7 +92,11 @@
     "allCategories": "All categories",
     "deleteConfirm": "Delete this transaction?",
     "saved": "Transaction saved",
-    "deleted": "Transaction deleted"
+    "deleted": "Transaction deleted",
+    "uploadReceipt": "Upload receipt",
+    "viewReceipt": "View receipt",
+    "receiptUploaded": "Receipt uploaded",
+    "receiptTooLarge": "File must be under 5MB"
   },
   "categories": {
     "freelance_income": "Freelance Income",
@@ -196,7 +200,9 @@
       "paid": "Paid",
       "overdue": "Overdue",
       "canceled": "Canceled"
-    }
+    },
+    "emailSent": "Invoice sent via email",
+    "sendEmail": "Send Email"
   },
   "tax": {
     "title": "Tax Calendar",
@@ -289,7 +295,9 @@
     "no": "No",
     "close": "Close",
     "more": "More",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "exportSuccess": "CSV exported successfully",
+    "navigation": "Navigate"
   },
   "settings": {
     "title": "Settings",
@@ -336,5 +344,18 @@
     "limitReached": "Plan limit reached",
     "upgradePrompt": "Upgrade your plan for more.",
     "upgradeNow": "Upgrade now"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Freelora!",
+    "welcomeDesc": "Let's set up your account in a few quick steps.",
+    "profileTitle": "Complete your profile",
+    "currencyTitle": "Choose your base currency",
+    "currencyDesc": "All income and expenses are automatically converted to this currency.",
+    "taxTitle": "Tax calendar",
+    "taxDesc": "Shall we auto-populate your tax calendar based on your country?",
+    "trTaxDates": "Turkish tax dates (VAT, withholding, income tax…) will be added to your calendar.",
+    "usTaxDates": "US quarterly estimated tax dates will be added to your calendar.",
+    "finish": "Let's go",
+    "done": "Your account is ready!"
   }
 }

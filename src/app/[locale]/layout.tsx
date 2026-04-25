@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -9,11 +10,48 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export const metadata = {
-  title: "Freelora — Take control of your freelance business",
-  description:
-    "Manage uneven income, send pro PDF invoices, never miss a tax date. The minimal, premium dashboard for freelancers.",
-};
+const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://freelora.app";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isTR = locale === "tr";
+
+  const title = isTR
+    ? "Freelora — Freelance işini kontrol altına al"
+    : "Freelora — Take control of your freelance business";
+  const description = isTR
+    ? "Gelir/gider takibi, PDF fatura, vergi takvimi ve çoklu para birimi. Freelancerlar için minimal ve premium finans paneli."
+    : "Income tracking, PDF invoices, tax calendar and multi-currency. The minimal, premium finance dashboard for freelancers.";
+
+  return {
+    title,
+    description,
+    metadataBase: new URL(base),
+    alternates: {
+      canonical: `${base}/${locale}`,
+      languages: { tr: `${base}/tr`, en: `${base}/en` },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${base}/${locale}`,
+      siteName: "Freelora",
+      locale: isTR ? "tr_TR" : "en_US",
+      type: "website",
+      images: [{ url: `${base}/og.png`, width: 1200, height: 630, alt: "Freelora" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`${base}/og.png`],
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
