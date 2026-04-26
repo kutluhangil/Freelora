@@ -31,8 +31,6 @@ export default async function ReportsPage({
 
   const thisYear = new Date().getFullYear();
   const startOfYear = `${thisYear}-01-01`;
-  const startOfLastYear = `${thisYear - 1}-01-01`;
-  const endOfLastYear = `${thisYear - 1}-12-31`;
 
   // Fetch 12 months trend
   const { data: trend } = await supabase.rpc("get_revenue_trend", {

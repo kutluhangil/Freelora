@@ -30,6 +30,7 @@ export function TimerWidget({ activeEntry, projects, clients }: Props) {
   const [elapsed, setElapsed] = useState(0);
   const [description, setDescription] = useState("");
   const [projectId, setProjectId] = useState("");
+  const [clientId, setClientId] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
   const [currency, setCurrency] = useState("TRY");
 
@@ -48,6 +49,7 @@ export function TimerWidget({ activeEntry, projects, clients }: Props) {
         await startTimer({
           description: description || undefined,
           project_id: projectId || null,
+          client_id: clientId || null,
           hourly_rate: hourlyRate ? Number(hourlyRate) : null,
           currency,
         });
@@ -120,11 +122,19 @@ export function TimerWidget({ activeEntry, projects, clients }: Props) {
               onChange={(e) => setProjectId(e.target.value)}
             />
             <Select
-              options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.flag ?? ""} ${c.code}` }))}
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
+              options={[
+                { value: "", label: t("transaction.noClient") },
+                ...clients.map((c) => ({ value: c.id, label: c.name })),
+              ]}
+              value={clientId}
+              onChange={(e) => setClientId(e.target.value)}
             />
           </div>
+          <Select
+            options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.flag ?? ""} ${c.code}` }))}
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+          />
           <Input
             label={t("timeTracker.hourlyRate")}
             type="number"

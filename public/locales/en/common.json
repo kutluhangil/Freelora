@@ -205,7 +205,8 @@
       "canceled": "Canceled"
     },
     "emailSent": "Invoice sent via email",
-    "sendEmail": "Send Email"
+    "sendEmail": "Send Email",
+    "deleteConfirm": "Delete this invoice? This cannot be undone."
   },
   "tax": {
     "title": "Tax Calendar",

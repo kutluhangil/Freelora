@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { invoiceSchema } from "@/lib/utils/validation";
+import { createNotificationForUser } from "@/lib/actions/notifications";
 import { z } from "zod";
 
 function calcTotals(
@@ -75,19 +76,53 @@ export async function createInvoice(input: z.infer<typeof invoiceSchema>) {
   return invoice;
 }
 
-export async function updateInvoiceStatus(id: string, status: "draft" | "sent" | "paid" | "overdue" | "canceled") {
+export async function updateInvoiceStatus(
+  id: string,
+  status: "draft" | "sent" | "paid" | "overdue" | "canceled"
+) {
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized");
+
   const update: Record<string, unknown> = { status };
   if (status === "sent") update.sent_at = new Date().toISOString();
   if (status === "paid") update.paid_at = new Date().toISOString();
-  const { error } = await supabase.from("invoices").update(update).eq("id", id);
+
+  const { data: invoice, error } = await supabase
+    .from("invoices")
+    .update(update)
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .select("invoice_number, total, currency")
+    .single();
+
   if (error) throw new Error(error.message);
+
+  if (status === "paid" && invoice) {
+    await createNotificationForUser(supabase, user.id, {
+      type: "invoice_paid",
+      title: `Fatura ödendi: ${invoice.invoice_number}`,
+      message: `${invoice.invoice_number} numaralı fatura ödendi. Tutar: ${invoice.total.toFixed(2)} ${invoice.currency}`,
+      href: `/invoices/${id}`,
+    });
+  }
+
   revalidatePath("/[locale]/(dashboard)/invoices", "page");
 }
 
 export async function deleteInvoice(id: string) {
   const supabase = await createClient();
-  const { error } = await supabase.from("invoices").delete().eq("id", id);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized");
+  const { error } = await supabase
+    .from("invoices")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user.id);
   if (error) throw new Error(error.message);
   revalidatePath("/[locale]/(dashboard)/invoices", "page");
 }

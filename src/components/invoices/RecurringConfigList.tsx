@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { toast } from "sonner";
 import { Edit2, Trash2, ToggleLeft, ToggleRight, Plus, RefreshCw } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
@@ -26,6 +27,7 @@ const INTERVAL_LABEL: Record<string, string> = {
 
 export function RecurringConfigList({ configs: initial, clients }: Props) {
   const t = useTranslations();
+  const router = useRouter();
   const [configs, setConfigs] = useState(initial);
   const [editing, setEditing] = useState<RecurringInvoiceConfig | null>(null);
   const [creating, setCreating] = useState(false);
@@ -34,6 +36,7 @@ export function RecurringConfigList({ configs: initial, clients }: Props) {
   function handleDone() {
     setEditing(null);
     setCreating(false);
+    router.refresh();
   }
 
   async function handleToggle(config: RecurringInvoiceConfig) {

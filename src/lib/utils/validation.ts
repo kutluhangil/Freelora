@@ -26,6 +26,7 @@ export const transactionSchema = z.object({
   is_recurring: z.boolean().default(false),
   recurring_interval: z.enum(["monthly", "quarterly", "yearly"]).nullable().optional(),
   notes: z.string().optional(),
+  receipt_url: z.string().nullable().optional(),
 });
 
 export const projectSchema = z.object({

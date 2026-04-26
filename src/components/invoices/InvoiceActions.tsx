@@ -30,7 +30,7 @@ export function InvoiceActions({ invoice }: { invoice: Invoice }) {
   }
 
   function onDelete() {
-    if (!confirm("Delete this invoice?")) return;
+    if (!confirm(t("deleteConfirm"))) return;
     start(async () => {
       try {
         await deleteInvoice(invoice.id);

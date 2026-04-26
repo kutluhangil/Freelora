@@ -205,7 +205,8 @@
       "canceled": "İptal"
     },
     "emailSent": "Fatura e-posta olarak gönderildi",
-    "sendEmail": "E-posta Gönder"
+    "sendEmail": "E-posta Gönder",
+    "deleteConfirm": "Bu fatura silinecek. Emin misin?"
   },
   "tax": {
     "title": "Vergi Takvimi",

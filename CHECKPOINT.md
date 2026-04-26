@@ -188,6 +188,44 @@ src/
 
 ---
 
+## Tam Debug & Doğrulama Geçişi — Bulunan ve Düzeltilen Sorunlar
+
+### Güvenlik Açıkları (Kritik — Hepsi Düzeltildi)
+| Dosya | Sorun | Düzeltme |
+|-------|-------|----------|
+| `actions/clients.ts` | `updateClient`, `deleteClient` — `user_id` filtresi yoktu, RLS olmadan herkes başkasının verisini güncelleyebilirdi | `eq("user_id", user.id)` eklendi |
+| `actions/projects.ts` | `updateProject`, `deleteProject` — aynı sorun | `eq("user_id", user.id)` eklendi |
+| `actions/invoices.ts` | `updateInvoiceStatus`, `deleteInvoice` — aynı sorun | `getUser()` ve `eq("user_id", user.id)` eklendi |
+| `actions/transactions.ts` | `updateTransaction`, `deleteTransaction` — aynı sorun | `eq("user_id", user.id)` eklendi |
+
+### Kritik Fonksiyonel Hatalar (Düzeltildi)
+| Dosya | Sorun | Düzeltme |
+|-------|-------|----------|
+| `api/invoices/send-email/route.ts` | PDF eki `path: <auth-required-url>` kullanıyordu. Resend sunucuları auth cookie'si olmadan bu URL'yi açamadığından ek boş gidiyordu. | `renderToBuffer()` ile PDF byte'ları doğrudan oluşturulup `content: buffer` olarak geçildi |
+| `lib/utils/validation.ts` | `transactionSchema`'da `receipt_url` alanı yoktu — yüklenen makbuzlar DB'ye hiç kaydedilmiyordu | `receipt_url: z.string().nullable().optional()` eklendi |
+| `actions/transactions.ts` | `updateTransaction` para birimi değişince `amount_in_base` ve `exchange_rate` yeniden hesaplamıyordu | `resolveExchangeRate()` yardımcı fonksiyon çıkarıldı ve hem create hem update'de kullanılıyor |
+| `actions/invoices.ts` | Fatura "ödendi" olarak işaretlenince bildirim oluşturulmuyordu | `status === "paid"` durumunda `createNotificationForUser` çağrısı eklendi |
+
+### Önemli Hatalar (Düzeltildi)
+| Dosya | Sorun | Düzeltme |
+|-------|-------|----------|
+| `src/middleware.ts` | `/time-tracker` ve `/proposals` rotaları `PROTECTED` listesinde yoktu — giriş yapmadan erişilebilirdi | Her ikisi de listeye eklendi |
+| `RecurringConfigList.tsx` | Yeni şablon oluşturunca/düzenlince liste eski hâliyle kalıyordu | `handleDone` içine `router.refresh()` eklendi |
+| `InvoiceActions.tsx` | Silme onayı `"Delete this invoice?"` İngilizce hardcode'du | `t("invoice.deleteConfirm")` kullanıldı; her iki dil dosyasına anahtar eklendi |
+| `TimerWidget.tsx` | `clients` prop alınıp TimerWidget'e geçiliyordu ama hiç render edilmiyordu | Müşteri seçici formu eklendi; `client_id` artık `startTimer`'a geçiliyor |
+| `lib/queries/dashboard.ts` | Proje kârlılığı için N+1 sorgu: 5 proje için 5 ayrı DB sorgusu | Tek `IN` sorgusu ile tüm proje işlemleri alınıp client-side gruplanıyor (5 sorgu → 1 sorgu) |
+
+### Küçük Sorunlar (Düzeltildi)
+| Dosya | Sorun | Düzeltme |
+|-------|-------|----------|
+| `reports/page.tsx` | `startOfLastYear`, `endOfLastYear` tanımlanmış ama hiç kullanılmamış — dead code | Kaldırıldı |
+| `ProposalAcceptButton.tsx` | Kabul/red sonrası sayfa yenilenmiyor; hardcode Türkçe string'ler | State-based feedback UI eklendi; kabul/red sonucu ekranda gösteriliyor |
+
+### TypeScript Doğrulama
+Tüm düzeltmeler uygulandıktan sonra `npm run type-check` sıfır hata ile geçiyor.
+
+---
+
 ## Bilinen Sınırlamalar / Gelecek İyileştirmeler
 
 - [ ] Raporlar PDF export — şu an sadece CSV var

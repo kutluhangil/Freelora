@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { locales, defaultLocale } from "@/i18n/config";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const PROTECTED = ["/dashboard", "/income", "/expenses", "/projects", "/invoices", "/clients", "/calendar", "/reports", "/settings", "/currency"];
+const PROTECTED = ["/dashboard", "/income", "/expenses", "/projects", "/invoices", "/clients", "/calendar", "/reports", "/settings", "/currency", "/time-tracker", "/proposals"];
 const AUTH_ONLY = ["/login", "/register", "/forgot-password"];
 
 const intlMiddleware = createIntlMiddleware({
