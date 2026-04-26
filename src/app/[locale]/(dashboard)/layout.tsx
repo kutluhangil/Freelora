@@ -25,17 +25,21 @@ export default async function DashboardLayout({
     redirect(`/${locale}/login`);
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .maybeSingle();
+  const [{ data: profile }, { data: notifications }] = await Promise.all([
+    supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
+    supabase
+      .from("notifications")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(20),
+  ]);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-bg-primary text-text-primary">
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar profile={profile as Profile | null} />
+        <Topbar profile={profile as Profile | null} notifications={(notifications ?? []) as import("@/types/database").Notification[]} />
         <main className="flex-1 overflow-y-auto pb-16 md:pb-0">
           <PageTransition>{children}</PageTransition>
         </main>

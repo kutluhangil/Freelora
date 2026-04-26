@@ -9,7 +9,8 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@/components/ui/Table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { formatCurrency } from "@/lib/utils/currency";
 import { formatDate } from "@/lib/utils/date";
-import type { Invoice, Client } from "@/types/database";
+import { RecurringConfigList } from "@/components/invoices/RecurringConfigList";
+import type { Invoice, Client, RecurringInvoiceConfig } from "@/types/database";
 
 export default async function InvoicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -20,13 +21,18 @@ export default async function InvoicesPage({ params }: { params: Promise<{ local
   } = await supabase.auth.getUser();
   if (!user) redirect(`/${locale}/login`);
 
-  const [{ data: invoices }, { data: clients }] = await Promise.all([
+  const [{ data: invoices }, { data: clients }, { data: recurringConfigs }] = await Promise.all([
     supabase
       .from("invoices")
       .select("*")
       .eq("user_id", user.id)
       .order("issue_date", { ascending: false }),
-    supabase.from("clients").select("id,name").eq("user_id", user.id),
+    supabase.from("clients").select("id,name,currency").eq("user_id", user.id),
+    supabase
+      .from("recurring_invoice_configs")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
   ]);
 
   const clientMap = new Map<string, string>();
@@ -99,6 +105,14 @@ export default async function InvoicesPage({ params }: { params: Promise<{ local
           </Table>
         </div>
       )}
+
+      {/* Recurring invoice templates */}
+      <div className="rounded-lg border border-border-subtle bg-bg-secondary p-4">
+        <RecurringConfigList
+          configs={(recurringConfigs ?? []) as RecurringInvoiceConfig[]}
+          clients={(clients ?? []) as Pick<Client, "id" | "name" | "currency">[]}
+        />
+      </div>
     </div>
   );
 }

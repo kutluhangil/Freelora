@@ -64,7 +64,8 @@
     "noTransactions": "No transactions yet",
     "noTaxes": "No upcoming taxes",
     "addTransaction": "Add Transaction",
-    "createInvoice": "Create Invoice"
+    "createInvoice": "Create Invoice",
+    "taxReserve": "Tax Reserve"
   },
   "transaction": {
     "addIncome": "Add Income",
@@ -400,6 +401,32 @@
     "totalIncome": "Total Income",
     "totalExpense": "Total Expense",
     "netProfit": "Net Profit"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "noNotifications": "No notifications",
+    "view": "View",
+    "markRead": "Mark as read"
+  },
+  "recurringInvoice": {
+    "title": "Recurring Invoice Templates",
+    "new": "New Template",
+    "edit": "Edit Template",
+    "templateTitle": "Template Title",
+    "interval": "Repeat Interval",
+    "dayOfMonth": "Day of Month",
+    "dueDays": "Due Days",
+    "saved": "Template saved",
+    "deleted": "Template deleted",
+    "deleteConfirm": "Delete this template?",
+    "noConfigs": "No recurring invoice templates yet"
+  },
+  "taxReserve": {
+    "title": "Tax Reserve",
+    "estimatedTax": "Estimated Tax",
+    "effectiveRate": "Effective Rate",
+    "disclaimer": "Estimated based on Turkish income tax brackets."
   },
   "onboarding": {
     "welcome": "Welcome to Freelora!",

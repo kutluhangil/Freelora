@@ -83,6 +83,11 @@ type TableDef<Row, Insert, Update> = {
 - [x] **Gecikmiş Fatura Hatırlatması** — günlük cron, müşteriye otomatik e-posta, `overdue_reminder_sent_at` takibi
 - [x] **Gelişmiş Raporlar** — aylık bar chart (son 12 ay), kategori breakdown, yıl özeti stat kartları
 
+### Olmazsa Olmaz Özellikler (üçüncü tur)
+- [x] **Tekrarlayan Fatura Otomasyonu** — şablon oluştur, günlük cron her gün kontrol eder, aylık/3 aylık/yıllık olarak otomatik draft fatura üretir
+- [x] **Uygulama İçi Bildirim Merkezi** — bell icon Topbar'da, unread badge, dropdown liste, okundu işaretleme, notification type'a göre ikon
+- [x] **Vergi Rezervi Hesaplayıcı** — TR gelir vergisi kademeli dilimlerine göre YTD gelir üzerinden tahmini vergi hesabı, dashboard widget
+
 ---
 
 ## Veritabanı Migration Sırası
@@ -100,6 +105,8 @@ type TableDef<Row, Insert, Update> = {
 | 009 | `009_proposals.sql` | `proposals` tablosu + `public_token` |
 | 010 | `010_client_portal.sql` | `clients.portal_token` kolonu |
 | 011 | `011_overdue_reminders.sql` | `invoices.overdue_reminder_sent_at` kolonu |
+| 012 | `012_notifications.sql` | `notifications` tablosu (type, title, message, href, read) |
+| 013 | `013_recurring_invoices.sql` | `recurring_invoice_configs` tablosu (items JSONB, interval, day_of_month) |
 
 ---
 
@@ -110,6 +117,7 @@ type TableDef<Row, Insert, Update> = {
 | 06:00 UTC | `/api/cron/exchange-sync` | Döviz kurlarını güncelle |
 | 08:00 UTC | `/api/cron/tax-reminders` | Vergi hatırlatma e-postaları |
 | 09:00 UTC | `/api/cron/overdue-reminders` | Gecikmiş fatura hatırlatma e-postaları |
+| 07:00 UTC | `/api/cron/recurring-invoices` | Aktif şablonlardan otomatik draft fatura üretimi + bildirim |
 
 Tüm cron'lar `Authorization: Bearer CRON_SECRET` header ile korunur.
 Vercel `CRON_SECRET`'ı otomatik oluşturur ve cron isteklerine ekler.
@@ -127,8 +135,10 @@ src/
 │   │   ├── projects.ts          # CRUD
 │   │   ├── clients.ts           # CRUD
 │   │   ├── tax-reminders.ts     # CRUD + seedTaxRemindersFromCountry()
-│   │   ├── time-entries.ts      # startTimer, stopTimer, toggleBilled
-│   │   └── proposals.ts         # CRUD + convertProposalToInvoice + acceptProposalByToken
+│   │   ├── time-entries.ts          # startTimer, stopTimer, toggleBilled
+│   │   ├── proposals.ts             # CRUD + convertProposalToInvoice + acceptProposalByToken
+│   │   ├── recurring-invoices.ts    # createRecurringConfig, updateRecurringConfig, deleteRecurringConfig
+│   │   └── notifications.ts         # createNotificationForUser, markNotificationRead, markAllNotificationsRead
 │   ├── email/
 │   │   ├── resend.ts            # Proxy-based lazy init
 │   │   └── templates.ts         # taxReminderHtml, invoiceEmailHtml, overdueInvoiceHtml
@@ -143,9 +153,10 @@ src/
 ├── app/
 │   ├── api/
 │   │   ├── cron/
-│   │   │   ├── exchange-sync/   # Döviz güncelleme
-│   │   │   ├── tax-reminders/   # Vergi e-postası
-│   │   │   └── overdue-reminders/ # Gecikmiş fatura e-postası
+│   │   │   ├── exchange-sync/       # Döviz güncelleme
+│   │   │   ├── tax-reminders/       # Vergi e-postası
+│   │   │   ├── overdue-reminders/   # Gecikmiş fatura e-postası
+│   │   │   └── recurring-invoices/  # Otomatik fatura üretimi
 │   │   ├── invoices/
 │   │   │   ├── generate-pdf/    # PDF stream
 │   │   │   └── send-email/      # Fatura e-postası
@@ -163,7 +174,7 @@ src/
 ## Deployment Notları
 
 ### Vercel (aktif)
-- `vercel.json` ile 3 cron job tanımlı
+- `vercel.json` ile 4 cron job tanımlı
 - `output: "standalone"` kaldırıldı (Docker'a özeldi)
 - `CRON_SECRET` Vercel tarafından otomatik yönetiliyor
 

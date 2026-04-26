@@ -2,18 +2,20 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Bell, Search, LogOut, User as UserIcon, Plus } from "lucide-react";
+import { Search, LogOut, User as UserIcon, Plus } from "lucide-react";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useRouter, Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
-import type { Profile } from "@/types/database";
+import type { Notification, Profile } from "@/types/database";
 import { Button } from "@/components/ui/Button";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 interface Props {
   profile: Profile | null;
+  notifications: Notification[];
 }
 
-export function Topbar({ profile }: Props) {
+export function Topbar({ profile, notifications }: Props) {
   const t = useTranslations("nav");
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -53,12 +55,7 @@ export function Topbar({ profile }: Props) {
 
         <LanguageSwitcher />
 
-        <button
-          className="relative rounded-md p-2 text-text-tertiary hover:bg-bg-tertiary hover:text-text-primary transition-colors"
-          aria-label="Notifications"
-        >
-          <Bell className="h-4 w-4" />
-        </button>
+        <NotificationBell notifications={notifications} />
 
         <div className="relative">
           <button

@@ -1,3 +1,5 @@
+export type NotificationType = "invoice_paid" | "invoice_overdue" | "tax_reminder" | "invoice_generated" | "general";
+
 export type PlanTier = "free" | "basic" | "pro";
 export type PlanStatus = "active" | "canceled" | "past_due" | "paused";
 export type TransactionType = "income" | "expense";
@@ -204,6 +206,37 @@ export interface Proposal {
   updated_at: string;
 }
 
+export interface Notification {
+  id: string;
+  user_id: string;
+  type: NotificationType;
+  title: string;
+  message: string | null;
+  href: string | null;
+  read: boolean;
+  created_at: string;
+}
+
+export interface RecurringInvoiceConfig {
+  id: string;
+  user_id: string;
+  client_id: string | null;
+  title: string;
+  items: ProposalItem[];
+  currency: string;
+  tax_rate: number;
+  discount_rate: number;
+  notes: string | null;
+  payment_terms: string | null;
+  interval: RecurringInterval;
+  day_of_month: number;
+  due_days: number;
+  is_active: boolean;
+  last_generated_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface SubscriptionEvent {
   id: string;
   user_id: string;
@@ -235,6 +268,8 @@ export interface Database {
       subscription_events: TableDef<SubscriptionEvent, Omit<SubscriptionEvent, "id" | "created_at"> & { id?: string }>;
       time_entries: TableDef<TimeEntry, Omit<TimeEntry, "id" | "created_at" | "updated_at"> & { id?: string }>;
       proposals: TableDef<Proposal, Omit<Proposal, "id" | "created_at" | "updated_at" | "public_token"> & { id?: string; public_token?: string }>;
+      notifications: TableDef<Notification, Omit<Notification, "id" | "created_at" | "read"> & { id?: string; read?: boolean }>;
+      recurring_invoice_configs: TableDef<RecurringInvoiceConfig, Omit<RecurringInvoiceConfig, "id" | "created_at" | "updated_at" | "last_generated_at"> & { id?: string; last_generated_at?: string | null }>;
     };
     Views: Record<string, never>;
     Functions: {

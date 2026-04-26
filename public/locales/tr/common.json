@@ -64,7 +64,8 @@
     "noTransactions": "Henüz işlem yok",
     "noTaxes": "Yaklaşan vergi yok",
     "addTransaction": "İşlem Ekle",
-    "createInvoice": "Fatura Oluştur"
+    "createInvoice": "Fatura Oluştur",
+    "taxReserve": "Vergi Rezervi"
   },
   "transaction": {
     "addIncome": "Gelir Ekle",
@@ -400,6 +401,32 @@
     "totalIncome": "Toplam Gelir",
     "totalExpense": "Toplam Gider",
     "netProfit": "Net Kâr"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "markAllRead": "Tümünü okundu işaretle",
+    "noNotifications": "Bildirim yok",
+    "view": "Görüntüle",
+    "markRead": "Okundu işaretle"
+  },
+  "recurringInvoice": {
+    "title": "Tekrarlayan Fatura Şablonları",
+    "new": "Yeni Şablon",
+    "edit": "Şablonu Düzenle",
+    "templateTitle": "Şablon Başlığı",
+    "interval": "Tekrar Aralığı",
+    "dayOfMonth": "Ayın Günü",
+    "dueDays": "Vade (gün)",
+    "saved": "Şablon kaydedildi",
+    "deleted": "Şablon silindi",
+    "deleteConfirm": "Bu şablon silinecek. Emin misin?",
+    "noConfigs": "Henüz tekrarlayan fatura şablonu yok"
+  },
+  "taxReserve": {
+    "title": "Vergi Rezervi",
+    "estimatedTax": "Tahmini Vergi Yükü",
+    "effectiveRate": "Efektif Oran",
+    "disclaimer": "Türkiye gelir vergisi dilimlerine göre tahmini hesaplamadır."
   },
   "onboarding": {
     "welcome": "Freelora'ya hoş geldin!",

@@ -16,6 +16,7 @@ import { ProjectProfitChart } from "@/components/dashboard/ProjectProfitChart";
 import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
 import { UpcomingTaxes } from "@/components/dashboard/UpcomingTaxes";
 import { CurrencyWidget } from "@/components/dashboard/CurrencyWidget";
+import { TaxReserveWidget } from "@/components/dashboard/TaxReserveWidget";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Button } from "@/components/ui/Button";
@@ -45,6 +46,15 @@ export default async function DashboardPage({
 
   const data = await getDashboardData(user.id);
   const sym = currencySymbol(profile?.preferred_currency ?? "TRY");
+
+  const yearStart = `${new Date().getFullYear()}-01-01`;
+  const { data: ytdRows } = await supabase
+    .from("transactions")
+    .select("amount")
+    .eq("user_id", user.id)
+    .eq("type", "income")
+    .gte("date", yearStart);
+  const ytdIncome = (ytdRows ?? []).reduce((s, r) => s + Number(r.amount), 0);
 
   const incomeDelta =
     data.prevMonthIncome > 0
@@ -186,6 +196,18 @@ export default async function DashboardPage({
               <Suspense fallback={<Skeleton className="h-32" />}>
                 <CurrencyWidget />
               </Suspense>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("taxReserve")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <TaxReserveWidget
+                ytdIncome={ytdIncome}
+                currency={profile?.preferred_currency ?? "TRY"}
+              />
             </CardContent>
           </Card>
         </div>
