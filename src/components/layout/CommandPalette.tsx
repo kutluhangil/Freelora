@@ -6,19 +6,21 @@ import { useTranslations } from "next-intl";
 import { Command } from "cmdk";
 import {
   LayoutDashboard, TrendingUp, TrendingDown, FolderOpen, FileText,
-  Users, Calendar, BarChart3, Settings, Plus, Search,
+  Users, Calendar, BarChart3, Settings, Plus, Search, Timer, Receipt,
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, labelKey: "nav.dashboard", href: "/dashboard" },
-  { icon: TrendingUp,       labelKey: "nav.income",    href: "/income" },
-  { icon: TrendingDown,     labelKey: "nav.expenses",  href: "/expenses" },
-  { icon: FolderOpen,       labelKey: "nav.projects",  href: "/projects" },
-  { icon: FileText,         labelKey: "nav.invoices",  href: "/invoices" },
-  { icon: Users,            labelKey: "nav.clients",   href: "/clients" },
-  { icon: Calendar,         labelKey: "nav.calendar",  href: "/calendar" },
-  { icon: BarChart3,        labelKey: "nav.reports",   href: "/reports" },
-  { icon: Settings,         labelKey: "nav.settings",  href: "/settings" },
+  { icon: LayoutDashboard, labelKey: "nav.dashboard",    href: "/dashboard" },
+  { icon: TrendingUp,      labelKey: "nav.income",       href: "/income" },
+  { icon: TrendingDown,    labelKey: "nav.expenses",     href: "/expenses" },
+  { icon: FolderOpen,      labelKey: "nav.projects",     href: "/projects" },
+  { icon: Receipt,         labelKey: "nav.invoices",     href: "/invoices" },
+  { icon: FileText,        labelKey: "nav.proposals",    href: "/proposals" },
+  { icon: Users,           labelKey: "nav.clients",      href: "/clients" },
+  { icon: Timer,           labelKey: "nav.timeTracker",  href: "/time-tracker" },
+  { icon: Calendar,        labelKey: "nav.calendar",     href: "/calendar" },
+  { icon: BarChart3,       labelKey: "nav.reports",      href: "/reports" },
+  { icon: Settings,        labelKey: "nav.settings",     href: "/settings" },
 ];
 
 const ACTION_ITEMS = [

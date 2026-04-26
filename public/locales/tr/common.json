@@ -10,7 +10,9 @@
     "transactions": "İşlemler",
     "projects": "Projeler",
     "invoices": "Faturalar",
+    "proposals": "Teklifler",
     "clients": "Müşteriler",
+    "timeTracker": "Zaman Takibi",
     "calendar": "Vergi Takvimi",
     "reports": "Raporlar",
     "settings": "Ayarlar",
@@ -344,6 +346,60 @@
     "limitReached": "Plan limitin doldu",
     "upgradePrompt": "Daha fazlası için planını yükselt.",
     "upgradeNow": "Şimdi Yükselt"
+  },
+  "timeTracker": {
+    "title": "Zaman Takibi",
+    "timer": "Zamanlayıcı",
+    "start": "Başlat",
+    "stop": "Durdur",
+    "running": "Çalışıyor",
+    "whatWorking": "Ne üzerinde çalışıyorsun?",
+    "hourlyRate": "Saatlik Ücret",
+    "billed": "Faturalandı",
+    "notBilled": "Faturalandırılmadı",
+    "noEntries": "Henüz zaman kaydı yok",
+    "noEntriesHint": "İlk zamanlayıcını başlatmak için sol paneli kullan.",
+    "recentEntries": "Son Kayıtlar",
+    "totalHours": "Toplam Saat",
+    "deleted": "Kayıt silindi",
+    "entrySaved": "Zaman kaydedildi"
+  },
+  "proposal": {
+    "title": "Teklifler",
+    "newProposal": "Yeni Teklif",
+    "editProposal": "Teklifi Düzenle",
+    "proposalTitle": "Teklif Başlığı",
+    "validUntil": "Geçerlilik Tarihi",
+    "convertToInvoice": "Faturaya Dönüştür",
+    "converted": "Fatura oluşturuldu",
+    "shareLink": "Paylaşım Linkini Kopyala",
+    "linkCopied": "Link kopyalandı!",
+    "markSent": "Gönderildi olarak işaretle",
+    "accept": "Kabul Et",
+    "reject": "Reddet",
+    "noProposals": "Henüz teklif yok",
+    "noProposalsHint": "İlk teklifini oluştur ve müşterine gönder.",
+    "saved": "Teklif kaydedildi",
+    "status": {
+      "draft": "Taslak",
+      "sent": "Gönderildi",
+      "accepted": "Kabul Edildi",
+      "rejected": "Reddedildi"
+    }
+  },
+  "portal": {
+    "title": "Müşteri Portalı",
+    "invoices": "Faturalarınız",
+    "noInvoices": "Henüz fatura yok"
+  },
+  "reports": {
+    "title": "Raporlar",
+    "revenue": "Gelir & Gider",
+    "categoryBreakdown": "Kategori Dağılımı",
+    "last12Months": "Son 12 Ay",
+    "totalIncome": "Toplam Gelir",
+    "totalExpense": "Toplam Gider",
+    "netProfit": "Net Kâr"
   },
   "onboarding": {
     "welcome": "Freelora'ya hoş geldin!",

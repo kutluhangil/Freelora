@@ -32,6 +32,10 @@ SUPABASE_SERVICE_ROLE_KEY    = service_role (GİZLİ — hiç paylaşma)
 | 5 | `supabase/migrations/005_seed.sql` | Başlangıç döviz kurları |
 | 6 | `supabase/migrations/006_onboarding.sql` | Onboarding kolonu |
 | 7 | `supabase/migrations/007_storage.sql` | Fiş yükleme bucket'ı |
+| 8 | `supabase/migrations/008_time_entries.sql` | Zaman takibi tablosu |
+| 9 | `supabase/migrations/009_proposals.sql` | Teklifler tablosu |
+| 10 | `supabase/migrations/010_client_portal.sql` | Müşteri portal token'ı |
+| 11 | `supabase/migrations/011_overdue_reminders.sql` | Gecikmiş fatura takibi |
 
 ### 1.4. Google OAuth (isteğe bağlı)
 **Authentication → Providers → Google**

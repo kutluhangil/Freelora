@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 import {
   LayoutDashboard,
-  Briefcase,
   Receipt,
-  Users,
+  FileText,
+  Timer,
   Settings,
 } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils/cn";
 
 const ITEMS = [
   { href: "/dashboard", icon: LayoutDashboard, key: "dashboard" },
-  { href: "/projects", icon: Briefcase, key: "projects" },
   { href: "/invoices", icon: Receipt, key: "invoices" },
-  { href: "/clients", icon: Users, key: "clients" },
+  { href: "/proposals", icon: FileText, key: "proposals" },
+  { href: "/time-tracker", icon: Timer, key: "timeTracker" },
   { href: "/settings", icon: Settings, key: "settings" },
 ];
 

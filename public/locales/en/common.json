@@ -10,7 +10,9 @@
     "transactions": "Transactions",
     "projects": "Projects",
     "invoices": "Invoices",
+    "proposals": "Proposals",
     "clients": "Clients",
+    "timeTracker": "Time Tracker",
     "calendar": "Tax Calendar",
     "reports": "Reports",
     "settings": "Settings",
@@ -344,6 +346,60 @@
     "limitReached": "Plan limit reached",
     "upgradePrompt": "Upgrade your plan for more.",
     "upgradeNow": "Upgrade now"
+  },
+  "timeTracker": {
+    "title": "Time Tracker",
+    "timer": "Timer",
+    "start": "Start",
+    "stop": "Stop",
+    "running": "Running",
+    "whatWorking": "What are you working on?",
+    "hourlyRate": "Hourly Rate",
+    "billed": "Billed",
+    "notBilled": "Unbilled",
+    "noEntries": "No time entries yet",
+    "noEntriesHint": "Use the timer on the left to start tracking.",
+    "recentEntries": "Recent Entries",
+    "totalHours": "Total Hours",
+    "deleted": "Entry deleted",
+    "entrySaved": "Time saved"
+  },
+  "proposal": {
+    "title": "Proposals",
+    "newProposal": "New Proposal",
+    "editProposal": "Edit Proposal",
+    "proposalTitle": "Proposal Title",
+    "validUntil": "Valid Until",
+    "convertToInvoice": "Convert to Invoice",
+    "converted": "Invoice created",
+    "shareLink": "Copy Share Link",
+    "linkCopied": "Link copied!",
+    "markSent": "Mark as sent",
+    "accept": "Accept",
+    "reject": "Reject",
+    "noProposals": "No proposals yet",
+    "noProposalsHint": "Create your first proposal and share it with a client.",
+    "saved": "Proposal saved",
+    "status": {
+      "draft": "Draft",
+      "sent": "Sent",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    }
+  },
+  "portal": {
+    "title": "Client Portal",
+    "invoices": "Your Invoices",
+    "noInvoices": "No invoices yet"
+  },
+  "reports": {
+    "title": "Reports",
+    "revenue": "Revenue & Expenses",
+    "categoryBreakdown": "Category Breakdown",
+    "last12Months": "Last 12 Months",
+    "totalIncome": "Total Income",
+    "totalExpense": "Total Expense",
+    "netProfit": "Net Profit"
   },
   "onboarding": {
     "welcome": "Welcome to Freelora!",

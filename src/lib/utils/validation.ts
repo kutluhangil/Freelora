@@ -55,6 +55,35 @@ export const clientSchema = z.object({
   notes: z.string().optional(),
 });
 
+export const timeEntrySchema = z.object({
+  description: z.string().default(""),
+  project_id: z.string().uuid().nullable().optional(),
+  client_id: z.string().uuid().nullable().optional(),
+  start_time: z.string(),
+  end_time: z.string().nullable().optional(),
+  duration_minutes: z.coerce.number().int().nonnegative().nullable().optional(),
+  hourly_rate: z.coerce.number().nonnegative().nullable().optional(),
+  currency: z.string().length(3).default("TRY"),
+  notes: z.string().optional(),
+});
+
+export const proposalItemSchema = z.object({
+  description: z.string().min(1),
+  quantity: z.coerce.number().positive(),
+  unit_price: z.coerce.number().nonnegative(),
+});
+
+export const proposalSchema = z.object({
+  client_id: z.string().uuid().nullable().optional(),
+  title: z.string().min(1),
+  items: z.array(proposalItemSchema).min(1),
+  currency: z.string().length(3).default("TRY"),
+  tax_rate: z.coerce.number().min(0).max(100).default(0),
+  discount_rate: z.coerce.number().min(0).max(100).default(0),
+  valid_until: z.string().nullable().optional(),
+  notes: z.string().optional(),
+});
+
 export const invoiceItemSchema = z.object({
   description: z.string().min(1),
   quantity: z.coerce.number().positive(),

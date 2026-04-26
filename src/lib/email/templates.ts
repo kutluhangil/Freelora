@@ -38,6 +38,51 @@ export function taxReminderHtml({
 </html>`;
 }
 
+export function overdueInvoiceHtml({
+  freelancerName,
+  clientName,
+  invoiceNumber,
+  total,
+  currency,
+  dueDate,
+  daysOverdue,
+  locale,
+}: {
+  freelancerName: string;
+  clientName: string;
+  invoiceNumber: string;
+  total: number;
+  currency: string;
+  dueDate: string;
+  daysOverdue: number;
+  locale: "tr" | "en";
+}): string {
+  const isTR = locale === "tr";
+  const subject = isTR
+    ? `Ödeme hatırlatması: ${invoiceNumber} numaralı fatura`
+    : `Payment reminder: Invoice ${invoiceNumber}`;
+  const body = isTR
+    ? `<b>${invoiceNumber}</b> numaralı faturanızın vadesi <b>${dueDate}</b> tarihinde dolmuştu. Gecikme: <b>${daysOverdue} gün</b>. Toplam tutar: <b>${total.toFixed(2)} ${currency}</b>.`
+    : `Invoice <b>${invoiceNumber}</b> was due on <b>${dueDate}</b>. It is now <b>${daysOverdue} days overdue</b>. Amount due: <b>${total.toFixed(2)} ${currency}</b>.`;
+  const footer = isTR
+    ? `Bu e-posta ${freelancerName} adına Freelora tarafından gönderilmiştir.`
+    : `Sent on behalf of ${freelancerName} via Freelora.`;
+
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"/></head>
+<body style="font-family:system-ui,sans-serif;background:#0A0A0B;color:#F5F5F7;padding:40px 20px;max-width:600px;margin:0 auto;">
+  <div style="background:#111113;border:1px solid #F87171;border-radius:12px;padding:32px;">
+    <p style="font-size:28px;font-weight:800;color:#C8FF00;margin:0 0 8px;">Freelora</p>
+    <p style="margin:0 0 24px;font-size:18px;font-weight:700;">${subject}</p>
+    <p style="margin:0 0 16px;">${isTR ? `Sayın ${clientName},` : `Dear ${clientName},`}</p>
+    <p style="margin:0 0 24px;color:#A1A1A6;">${body}</p>
+    <p style="margin:32px 0 0;font-size:12px;color:#6B6B70;">${footer}</p>
+  </div>
+</body>
+</html>`;
+}
+
 export function invoiceEmailHtml({
   fromName,
   clientName,

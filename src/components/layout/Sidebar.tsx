@@ -14,6 +14,8 @@ import {
   Coins,
   ChevronsLeft,
   Sparkles,
+  Timer,
+  FileText,
 } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useUIStore } from "@/stores/uiStore";
@@ -32,7 +34,9 @@ const NAV: NavItem[] = [
   { href: "/expenses", icon: ArrowUpFromLine, labelKey: "expenses" },
   { href: "/projects", icon: Briefcase, labelKey: "projects" },
   { href: "/invoices", icon: Receipt, labelKey: "invoices" },
+  { href: "/proposals", icon: FileText, labelKey: "proposals" },
   { href: "/clients", icon: Users, labelKey: "clients" },
+  { href: "/time-tracker", icon: Timer, labelKey: "timeTracker" },
   { href: "/calendar", icon: Calendar, labelKey: "calendar" },
   { href: "/reports", icon: BarChart3, labelKey: "reports" },
   { href: "/currency", icon: Coins, labelKey: "currency" },

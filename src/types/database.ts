@@ -157,6 +157,53 @@ export interface ExchangeRate {
   fetched_at: string;
 }
 
+export type ProposalStatus = "draft" | "sent" | "accepted" | "rejected";
+
+export interface ProposalItem {
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total: number;
+}
+
+export interface TimeEntry {
+  id: string;
+  user_id: string;
+  project_id: string | null;
+  client_id: string | null;
+  description: string;
+  start_time: string;
+  end_time: string | null;
+  duration_minutes: number | null;
+  hourly_rate: number | null;
+  currency: string;
+  is_billed: boolean;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Proposal {
+  id: string;
+  user_id: string;
+  client_id: string | null;
+  title: string;
+  items: ProposalItem[];
+  subtotal: number;
+  tax_rate: number;
+  tax_amount: number;
+  discount_rate: number;
+  discount_amount: number;
+  total: number;
+  currency: string;
+  status: ProposalStatus;
+  valid_until: string | null;
+  notes: string | null;
+  public_token: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface SubscriptionEvent {
   id: string;
   user_id: string;
@@ -186,6 +233,8 @@ export interface Database {
       tax_reminders: TableDef<TaxReminder, Omit<TaxReminder, "id" | "created_at" | "notified"> & { id?: string; notified?: boolean }>;
       exchange_rates: TableDef<ExchangeRate, Omit<ExchangeRate, "id"> & { id?: string }>;
       subscription_events: TableDef<SubscriptionEvent, Omit<SubscriptionEvent, "id" | "created_at"> & { id?: string }>;
+      time_entries: TableDef<TimeEntry, Omit<TimeEntry, "id" | "created_at" | "updated_at"> & { id?: string }>;
+      proposals: TableDef<Proposal, Omit<Proposal, "id" | "created_at" | "updated_at" | "public_token"> & { id?: string; public_token?: string }>;
     };
     Views: Record<string, never>;
     Functions: {
