@@ -57,7 +57,7 @@ export function Testimonials() {
               className="rounded-xl border border-border-subtle bg-bg-secondary p-6"
             >
               <p className="text-sm leading-relaxed text-text-secondary">
-                "{locale === "en" ? t.text.en : t.text.tr}"
+                &ldquo;{locale === "en" ? t.text.en : t.text.tr}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-muted text-xs font-bold text-accent">
